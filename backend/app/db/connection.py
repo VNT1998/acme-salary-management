@@ -9,9 +9,10 @@ def create_connection(db_path: Path | str | None = None) -> sqlite3.Connection:
     if db_path is None:
         db_path = get_settings().database_file_path
 
-    # Ensure parent directory exists if using a file path
-    if isinstance(db_path, Path) and db_path.name != ":memory:":
-        db_path.parent.mkdir(parents=True, exist_ok=True)
+    path_str = str(db_path)
+    if path_str != ":memory:":
+        Path(path_str).resolve().parent.mkdir(parents=True, exist_ok=True)
+
 
     conn = sqlite3.connect(
         str(db_path),
