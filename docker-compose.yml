@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_PATH=/data/acme.db
+      - SESSION_SECRET=production-secret-key-acme-salary-assessment-2026
+      - SESSION_COOKIE_SECURE=false
+    volumes:
+      - acme_db_data:/data
+
+volumes:
+  acme_db_data:
