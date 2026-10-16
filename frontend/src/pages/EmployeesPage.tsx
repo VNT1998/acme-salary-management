@@ -45,7 +45,11 @@ const getInitials = (name: string) => {
   return name.slice(0, 2).toUpperCase();
 };
 
-export const EmployeesPage: React.FC = () => {
+interface EmployeesPageProps {
+  initialSearch?: string;
+}
+
+export const EmployeesPage: React.FC<EmployeesPageProps> = ({ initialSearch = '' }) => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -54,7 +58,7 @@ export const EmployeesPage: React.FC = () => {
 
   // Filters & Pagination
   const [filters, setFilters] = useState<EmployeeFilters>({
-    search: '',
+    search: initialSearch,
     department: '',
     country: '',
     job_title: '',

@@ -190,3 +190,26 @@ This log documents the AI-assisted implementation sessions for the ACME Salary M
   - `npm run build` compiled in 206ms with 0 errors.
   - Playwright mobile test run at 390x844: verified responsive navigation, employee cards, analytics cards, and captured screenshots.
   - Backend test suite: `uv run pytest` (14/14 passed in 1.07s).
+
+---
+
+### Milestone M12: ACME HRMS Official Logo & Dashboard Moodboard Implementation
+- **Date / Milestone:** 2026-10-17 / M12
+- **Tool / Agent:** Antigravity (Gemini 3.8 Flash)
+- **Prompt / Task:** Implement portal design matching user-provided official logo (`acme-hrms-logo.png`) and UI inspiration moodboard (`ACME HRMS Dashboard UI Moodboard.png`).
+- **Files Changed:**
+  - `frontend/public/acme-hrms-logo.png` (official ACME HRMS logo asset copied to web public directory)
+  - `frontend/src/styles/theme.css` (sidebar layout `.app-sidebar-layout`, `.sidebar`, `.main-wrapper`, `.topbar`, royal blue `#2563EB` color system, off-canvas mobile drawer)
+  - `frontend/src/components/Sidebar.tsx` (left-hand sidebar with logo, navigation items for Dashboard, Employees, Analytics, and Profile, active indicator, mobile drawer controls, and bottom account card)
+  - `frontend/src/components/Topbar.tsx` (sticky topbar with global employee search input, mobile hamburger toggle, notifications, and admin user dropdown menu)
+  - `frontend/src/components/LoginView.tsx` (split-screen layout matching Screen 1: left auth card with official logo, password eye toggle, and demo chip; right navy hero banner "People Payroll Progress")
+  - `frontend/src/pages/DashboardPage.tsx` (Screen 2: 4 KPI summary cards, department donut distribution chart with percentage breakdown legend, salary distribution histogram cohorts, and recent salary updates audit table with "View All" link)
+  - `frontend/src/pages/ProfilePage.tsx` (Screen 6: Admin user details, role badge, change password form, and session governance information)
+  - `frontend/src/pages/EmployeesPage.tsx` (integrated search synchronization with Topbar)
+  - `frontend/src/App.tsx` (refactored top-level layout with persistent sidebar, topbar, active tab routing, and responsive mobile drawer state)
+  - Captured verified screenshots: `screenshot-dashboard.png`, `screenshot-login.png`, `screenshot-employees.png`, `screenshot-analytics.png`, `screenshot-profile.png`, `screenshot-mobile-dashboard.png`, `screenshot-mobile-sidebar.png`
+- **Tests / Checks Run:**
+  - `npm run build` completed in 296ms with 0 TypeScript/lint errors.
+  - `uv run pytest` completed with 14/14 tests passing in 1.07s.
+  - Automated Playwright browser verification on Desktop (1440x900) and Mobile (390x844).
+
