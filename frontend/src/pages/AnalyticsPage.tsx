@@ -82,14 +82,7 @@ export const AnalyticsPage: React.FC = () => {
   return (
     <div>
       {/* Page Title & Context Header */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        marginBottom: 24,
-        flexWrap: 'wrap',
-        gap: 12,
-      }}>
+      <div className="page-header-row">
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
             Compensation Analytics
@@ -110,6 +103,7 @@ export const AnalyticsPage: React.FC = () => {
           fontWeight: 600,
           color: 'var(--text-secondary)',
           boxShadow: 'var(--shadow-xs)',
+          alignSelf: 'flex-start',
         }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#10b981' }} />
           <span>Real-time Calculation Engine (USD)</span>
@@ -128,7 +122,7 @@ export const AnalyticsPage: React.FC = () => {
         }}>
           Segment & Filter Cohort
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+        <div className="filter-grid-analytics">
           <div>
             <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Department</label>
             <select
@@ -215,12 +209,7 @@ export const AnalyticsPage: React.FC = () => {
       )}
 
       {/* KPI Cards Row */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: 16,
-        marginBottom: 24,
-      }}>
+      <div className="kpi-grid">
         <KPICard
           title="Active Headcount"
           value={analytics ? analytics.employee_count.toLocaleString() : null}

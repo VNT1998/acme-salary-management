@@ -77,6 +77,8 @@ export const SalaryUpdateModal: React.FC<SalaryUpdateModalProps> = ({
               borderRadius: 'var(--radius-md)',
               marginBottom: 20,
               display: 'flex',
+              flexWrap: 'wrap',
+              gap: 12,
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>

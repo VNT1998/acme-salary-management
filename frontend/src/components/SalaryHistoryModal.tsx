@@ -62,6 +62,8 @@ export const SalaryHistoryModal: React.FC<SalaryHistoryModalProps> = ({
             borderRadius: 'var(--radius-md)',
             marginBottom: 16,
             display: 'flex',
+            flexWrap: 'wrap',
+            gap: 12,
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>

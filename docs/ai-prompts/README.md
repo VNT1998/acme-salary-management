@@ -170,3 +170,23 @@ This log documents the AI-assisted implementation sessions for the ACME Salary M
   - `npm run build` completed in 187ms with zero errors.
   - Full Playwright browser automation test: logged in with `hr@acme.test`, inspected live pages, captured full-page screenshots.
   - Backend test suite: `uv run pytest` (14/14 passed in 1.06s).
+
+---
+
+### Milestone M11: Mobile & Responsive Layout Optimization
+- **Date / Milestone:** 2026-10-17 / M11
+- **Tool / Agent:** Antigravity (Gemini 3.8 Flash)
+- **Prompt / Task:** Optimize application across all mobile viewports (e.g. 390x844 iPhone, tablets): responsive two-row mobile navbar, touch-accessible full-width segmented tab switcher, responsive employee card list on mobile (hiding wide table headers), stacked filter controls with keyboard shortcut chips, mobile-responsive KPI cards, bottom-sheet responsive modals, and verified Playwright mobile screenshots.
+- **Files Changed:**
+  - `frontend/src/styles/theme.css` (mobile padding, media queries, visibility helpers `.mobile-only` / `.desktop-only`, `.employee-mobile-card`, `.pagination-bar`, `.form-row`)
+  - `frontend/src/components/Navbar.tsx` (dedicated mobile double-row header with brand, HR avatar, logout, and full-width segmented tabs)
+  - `frontend/src/pages/EmployeesPage.tsx` (responsive header layout, stacked filter grid, dedicated mobile card list with action triggers, responsive pagination)
+  - `frontend/src/pages/AnalyticsPage.tsx` (responsive page header, auto-fit filter grid, 1/2-column mobile KPI grid)
+  - `frontend/src/components/EmployeeModal.tsx` (`.form-row` responsive multi-column layouts)
+  - `frontend/src/components/SalaryUpdateModal.tsx` (responsive employee banner with `flexWrap: wrap`)
+  - `frontend/src/components/SalaryHistoryModal.tsx` (responsive employee banner with `flexWrap: wrap`)
+  - `screenshot-mobile-employees.png` & `screenshot-mobile-analytics.png` (verified mobile viewport screenshots)
+- **Tests / Checks Run:**
+  - `npm run build` compiled in 206ms with 0 errors.
+  - Playwright mobile test run at 390x844: verified responsive navigation, employee cards, analytics cards, and captured screenshots.
+  - Backend test suite: `uv run pytest` (14/14 passed in 1.07s).

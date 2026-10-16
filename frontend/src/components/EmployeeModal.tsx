@@ -138,7 +138,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-row">
               <div className="form-group">
                 <label className="form-label">Department</label>
                 <select
@@ -181,7 +181,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
             </div>
 
             {!isEditing && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div className="form-row">
                 <div className="form-group">
                   <label className="form-label">Initial Salary (USD)</label>
                   <input

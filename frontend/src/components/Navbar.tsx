@@ -25,21 +25,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       top: 0,
       zIndex: 40,
     }}>
-      <div style={{
-        maxWidth: 1440,
-        margin: '0 auto',
-        padding: '0 36px',
-        height: 68,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
+      {/* Desktop Single-Row Navbar */}
+      <div className="navbar-inner desktop-only">
         {/* Brand / Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
-            width: 38,
-            height: 38,
-            borderRadius: 10,
+            width: 34,
+            height: 34,
+            borderRadius: 8,
             background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)',
             color: '#fff',
             display: 'flex',
@@ -47,20 +40,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             justifyContent: 'center',
             boxShadow: '0 4px 12px -2px rgba(67, 56, 202, 0.35)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
+            flexShrink: 0,
           }}>
-            <Sparkles size={18} color="#a5b4fc" />
+            <Sparkles size={16} color="#a5b4fc" />
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontWeight: 800, fontSize: 17, letterSpacing: '-0.4px', color: 'var(--text-primary)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: '-0.3px', color: 'var(--text-primary)' }}>
                 ACME
               </span>
               <span style={{
                 fontSize: 10,
                 fontWeight: 700,
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                padding: '2px 6px',
+                padding: '2px 5px',
                 borderRadius: 4,
                 backgroundColor: 'var(--primary-subtle)',
                 color: 'var(--primary)',
@@ -68,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Comp v1.0
               </span>
             </div>
-            <div style={{ fontSize: 11.5, color: 'var(--text-secondary)', fontWeight: 500, letterSpacing: '-0.1px' }}>
+            <div className="navbar-brand-subtitle">
               Salary Management & Compensation Analytics
             </div>
           </div>
@@ -78,10 +72,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <nav style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          gap: 3,
           backgroundColor: '#f1f5f9',
-          padding: 4,
-          borderRadius: 10,
+          padding: 3,
+          borderRadius: 8,
           border: '1px solid #e2e8f0',
         }}>
           <button
@@ -90,17 +84,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             style={{
               backgroundColor: activeTab === 'employees' ? '#ffffff' : 'transparent',
               color: activeTab === 'employees' ? 'var(--primary)' : 'var(--text-secondary)',
-              boxShadow: activeTab === 'employees' ? '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)' : 'none',
-              padding: '7px 18px',
-              fontSize: 13.5,
+              boxShadow: activeTab === 'employees' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              padding: '6px 14px',
+              fontSize: 13,
               fontWeight: 600,
-              borderRadius: 8,
+              borderRadius: 6,
               border: 'none',
               transition: 'all 0.15s ease',
             }}
             onClick={() => onTabChange('employees')}
           >
-            <Users size={15} />
+            <Users size={14} />
             <span>Employees</span>
           </button>
 
@@ -110,37 +104,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             style={{
               backgroundColor: activeTab === 'analytics' ? '#ffffff' : 'transparent',
               color: activeTab === 'analytics' ? 'var(--primary)' : 'var(--text-secondary)',
-              boxShadow: activeTab === 'analytics' ? '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)' : 'none',
-              padding: '7px 18px',
-              fontSize: 13.5,
+              boxShadow: activeTab === 'analytics' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              padding: '6px 14px',
+              fontSize: 13,
               fontWeight: 600,
-              borderRadius: 8,
+              borderRadius: 6,
               border: 'none',
               transition: 'all 0.15s ease',
             }}
             onClick={() => onTabChange('analytics')}
           >
-            <BarChart3 size={15} />
+            <BarChart3 size={14} />
             <span>Analytics</span>
           </button>
         </nav>
 
         {/* Right Session & Account Info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           {/* Live DB Pill */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 12,
-            fontWeight: 600,
-            color: 'var(--text-secondary)',
-            backgroundColor: '#ffffff',
-            padding: '5px 12px',
-            borderRadius: 9999,
-            border: '1px solid var(--border-color)',
-            boxShadow: 'var(--shadow-xs)',
-          }}>
+          <div className="navbar-stats-pill">
             <span style={{
               width: 7,
               height: 7,
@@ -155,28 +137,28 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 9,
-            padding: '4px 10px 4px 6px',
+            gap: 7,
+            padding: '3px 8px 3px 5px',
             backgroundColor: '#ffffff',
-            borderRadius: 8,
+            borderRadius: 7,
             border: '1px solid var(--border-color)',
             boxShadow: 'var(--shadow-xs)',
           }}>
             <div style={{
-              width: 26,
-              height: 26,
-              borderRadius: 6,
+              width: 24,
+              height: 24,
+              borderRadius: 5,
               backgroundColor: 'var(--primary-subtle)',
               color: 'var(--primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 11,
+              fontSize: 10.5,
               fontWeight: 700,
             }}>
               HR
             </div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>
+            <span className="navbar-user-email">
               {user.email}
             </span>
           </div>
@@ -187,12 +169,124 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="btn btn-ghost btn-sm"
             onClick={onLogout}
             title="Sign out of HR session"
-            style={{ color: 'var(--text-secondary)', padding: '6px 10px' }}
+            style={{ color: 'var(--text-secondary)', padding: '5px 8px' }}
           >
-            <LogOut size={15} />
+            <LogOut size={14} />
             <span>Logout</span>
           </button>
         </div>
+      </div>
+
+      {/* Mobile-Optimized Double Row Header */}
+      <div className="mobile-only" style={{ padding: '10px 14px 10px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          {/* Brand */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{
+              width: 28,
+              height: 28,
+              borderRadius: 7,
+              background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)',
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Sparkles size={14} color="#a5b4fc" />
+            </div>
+            <span style={{ fontWeight: 800, fontSize: 16, color: 'var(--text-primary)' }}>ACME</span>
+            <span style={{
+              fontSize: 9.5,
+              fontWeight: 700,
+              padding: '2px 5px',
+              borderRadius: 4,
+              backgroundColor: 'var(--primary-subtle)',
+              color: 'var(--primary)',
+            }}>
+              Comp v1.0
+            </span>
+          </div>
+
+          {/* User Avatar & Logout */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{
+              width: 26,
+              height: 26,
+              borderRadius: 6,
+              backgroundColor: 'var(--primary-subtle)',
+              color: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 10.5,
+              fontWeight: 700,
+            }}>
+              HR
+            </div>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              onClick={onLogout}
+              title="Logout"
+              style={{ padding: '4px 8px', fontSize: 12 }}
+            >
+              <LogOut size={14} />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Full-width segmented tab controls */}
+        <nav style={{
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: '#f1f5f9',
+          padding: 3,
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+        }}>
+          <button
+            type="button"
+            className="btn"
+            style={{
+              flex: 1,
+              backgroundColor: activeTab === 'employees' ? '#ffffff' : 'transparent',
+              color: activeTab === 'employees' ? 'var(--primary)' : 'var(--text-secondary)',
+              boxShadow: activeTab === 'employees' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              padding: '7px 0',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 6,
+              border: 'none',
+              transition: 'all 0.15s ease',
+            }}
+            onClick={() => onTabChange('employees')}
+          >
+            <Users size={14} />
+            <span>Employees</span>
+          </button>
+
+          <button
+            type="button"
+            className="btn"
+            style={{
+              flex: 1,
+              backgroundColor: activeTab === 'analytics' ? '#ffffff' : 'transparent',
+              color: activeTab === 'analytics' ? 'var(--primary)' : 'var(--text-secondary)',
+              boxShadow: activeTab === 'analytics' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              padding: '7px 0',
+              fontSize: 13,
+              fontWeight: 600,
+              borderRadius: 6,
+              border: 'none',
+              transition: 'all 0.15s ease',
+            }}
+            onClick={() => onTabChange('analytics')}
+          >
+            <BarChart3 size={14} />
+            <span>Analytics</span>
+          </button>
+        </nav>
       </div>
     </header>
   );

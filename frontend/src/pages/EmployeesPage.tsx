@@ -180,12 +180,7 @@ export const EmployeesPage: React.FC = () => {
   return (
     <div>
       {/* Page Header */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        marginBottom: 24,
-      }}>
+      <div className="page-header-row">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
             <h1 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.5px' }}>
@@ -207,7 +202,7 @@ export const EmployeesPage: React.FC = () => {
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="page-header-actions">
           <button
             type="button"
             className="btn btn-secondary"
@@ -253,14 +248,9 @@ export const EmployeesPage: React.FC = () => {
           )}
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr auto',
-          gap: 10,
-          alignItems: 'center',
-        }}>
+        <div className="filter-grid-employees">
           {/* Search box with keyboard shortcut indicator */}
-          <div style={{ position: 'relative' }}>
+          <div className="filter-search-col" style={{ position: 'relative' }}>
             <input
               type="text"
               className="input"
@@ -373,8 +363,8 @@ export const EmployeesPage: React.FC = () => {
         </div>
       )}
 
-      {/* Main Employee Table */}
-      <div className="table-container">
+      {/* Main Employee Table (Desktop) */}
+      <div className="table-container desktop-only" style={{ marginBottom: 20 }}>
         <div className="table-responsive">
           <table className="data-table">
             <thead>
@@ -559,29 +549,163 @@ export const EmployeesPage: React.FC = () => {
             </tbody>
           </table>
         </div>
+      </div>
 
-        {/* Enhanced Pagination Bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '14px 20px',
-          borderTop: '1px solid var(--border-color)',
-          backgroundColor: '#fafbfc',
-        }}>
+      {/* Mobile Employee Card List */}
+      <div className="mobile-only" style={{ marginBottom: 16 }}>
+        {loading ? (
+          <div className="card" style={{ textAlign: 'center', padding: 36, color: 'var(--text-secondary)' }}>
+            <div style={{
+              width: 24,
+              height: 24,
+              border: '3px solid #e2e8f0',
+              borderTopColor: 'var(--primary)',
+              borderRadius: '50%',
+              animation: 'spin 0.8s linear infinite',
+              margin: '0 auto 10px auto',
+            }} />
+            <span style={{ fontSize: 13, fontWeight: 500 }}>Fetching employee records...</span>
+          </div>
+        ) : employees.length === 0 ? (
+          <div className="card" style={{ textAlign: 'center', padding: 36, color: 'var(--text-secondary)' }}>
+            <AlertCircle size={28} color="var(--text-muted)" style={{ margin: '0 auto 8px auto' }} />
+            <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>No matching employees</div>
+            <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+              Try clearing or adjusting your search queries and filter bounds.
+            </span>
+          </div>
+        ) : (
+          <div className="employee-card-list">
+            {employees.map((emp) => {
+              const avatarColor = getAvatarColor(emp.full_name);
+              const deptClass = `dept-${emp.department.replace(/\s+/g, '-')}`;
+
+              return (
+                <div key={emp.id} className="employee-mobile-card">
+                  {/* Header: Avatar, Name, Code, Edit */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div
+                        className="avatar"
+                        style={{ backgroundColor: avatarColor.bg, color: avatarColor.text }}
+                      >
+                        {getInitials(emp.full_name)}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-primary)' }}>
+                          {emp.full_name}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
+                          <span className="tabular-nums" style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: 'var(--primary)',
+                          }}>
+                            {emp.employee_code}
+                          </span>
+                          <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>•</span>
+                          <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{emp.country}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-ghost btn-sm"
+                      title="Edit employee details"
+                      onClick={() => {
+                        setEmployeeToEdit(emp);
+                        setIsEmployeeModalOpen(true);
+                      }}
+                      style={{ padding: '6px' }}
+                    >
+                      <Edit3 size={15} color="var(--text-secondary)" />
+                    </button>
+                  </div>
+
+                  {/* Body: Department badge & Job title */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
+                    <span className={`dept-badge ${deptClass}`}>{emp.department}</span>
+                    <span style={{ fontSize: 12.5, color: 'var(--text-secondary)', fontWeight: 500 }}>
+                      {emp.job_title}
+                    </span>
+                  </div>
+
+                  {/* Footer: Salary & Actions */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: 10,
+                    borderTop: '1px solid var(--border-subtle)',
+                    gap: 8,
+                  }}>
+                    <div>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        Base Comp
+                      </div>
+                      <div className="tabular-nums" style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: 700,
+                        fontSize: 15,
+                        color: 'var(--text-primary)',
+                      }}>
+                        ${Number(emp.current_salary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 3 }}>USD</span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <button
+                        type="button"
+                        className="btn btn-primary btn-sm"
+                        onClick={() => {
+                          setEmployeeForSalary(emp);
+                          setIsSalaryModalOpen(true);
+                        }}
+                        style={{ padding: '6px 12px' }}
+                      >
+                        <TrendingUp size={13} />
+                        <span>Salary</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => {
+                          setEmployeeForHistory(emp);
+                          setIsHistoryModalOpen(true);
+                        }}
+                        style={{ padding: '6px 10px' }}
+                      >
+                        <History size={13} />
+                        <span>History</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Pagination Bar Card */}
+      <div className="card" style={{ overflow: 'hidden', marginBottom: 20 }}>
+        <div className="pagination-bar">
           <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
             Showing page <strong style={{ color: 'var(--text-primary)' }}>{filters.page}</strong> of{' '}
             <strong style={{ color: 'var(--text-primary)' }}>{totalPages || 1}</strong> ({totalItems.toLocaleString()} employees)
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div className="pagination-controls" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <button
               type="button"
               className="btn btn-secondary btn-sm"
               disabled={filters.page <= 1 || loading}
               onClick={() => handleFilterChange('page', filters.page - 1)}
             >
-              Previous Page
+              Previous
             </button>
 
             <span style={{
@@ -601,7 +725,7 @@ export const EmployeesPage: React.FC = () => {
               disabled={filters.page >= totalPages || loading}
               onClick={() => handleFilterChange('page', filters.page + 1)}
             >
-              Next Page
+              Next
             </button>
           </div>
         </div>
