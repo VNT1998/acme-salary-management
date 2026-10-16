@@ -1,0 +1,19 @@
+flowchart TD
+    A[HR submits employee details] --> B[Validate request]
+    B --> C{Valid and unique?}
+    C -- No --> D[Return validation or conflict error]
+    C -- Yes --> E[Begin transaction]
+    E --> F[Insert employee with generated ID]
+    F --> G[Insert initial salary-history row]
+    G --> H{Both writes succeed?}
+    H -- No --> I[Rollback transaction]
+    H -- Yes --> J[Commit and return employee]
+
+    K[HR submits salary and effective date] --> L[Validate request]
+    L --> M[Begin transaction / protect against stale update]
+    M --> N[Read current salary]
+    N --> O[Update current salary]
+    O --> P[Append salary-history row]
+    P --> Q{Both writes succeed?}
+    Q -- No --> R[Rollback transaction]
+    Q -- Yes --> S[Commit and return updated salary]

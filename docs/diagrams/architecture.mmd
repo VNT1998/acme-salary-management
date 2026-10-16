@@ -1,0 +1,12 @@
+flowchart TD
+    HR[HR Manager] --> UI[React Web UI]
+    UI -->|HTTPS / JSON| API[FastAPI REST API]
+    API --> AUTH[Authentication and Session Layer]
+    API --> SVC[Application Services]
+    SVC --> EMP[Employee Management]
+    SVC --> SAL[Salary Update]
+    SVC --> ANA[Analytics]
+    EMP --> DAL[Data Access Layer]
+    SAL --> DAL
+    ANA --> DAL
+    DAL --> DB[(SQLite)]
