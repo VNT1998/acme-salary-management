@@ -152,3 +152,21 @@ This log documents the AI-assisted implementation sessions for the ACME Salary M
   - `backend/app/main.py`
   - `README.md`
   - `docs/ai-prompts/README.md`
+
+---
+
+### Milestone M10: Enterprise Visual Design Overhaul & Browser Verification
+- **Date / Milestone:** 2026-10-17 / M10
+- **Tool / Agent:** Antigravity (Gemini 3.8 Flash)
+- **Prompt / Task:** Address feedback that the UI looked "too AI-ish and not up to the mark". Elevate aesthetics to top-tier enterprise B2B SaaS standards (Linear/Stripe/Rippling): typography, pastel avatars, department badges, segmented controls, colored KPI cards, relative scale progress bars, and high-res Playwright browser screenshot verification.
+- **Files Changed:**
+  - `frontend/src/styles/theme.css` (imported Plus Jakarta Sans & JetBrains Mono, color system, department badges, tabular numbers)
+  - `frontend/src/components/Navbar.tsx` (glassmorphism header, brand pill, segmented switcher, live record indicator, HR user badge)
+  - `frontend/src/components/KPICard.tsx` (accent top borders, soft icon badge, mono values, cohort subtitle chips)
+  - `frontend/src/pages/EmployeesPage.tsx` (pastel hashed initials avatars, department color chips, mono salary, action groups, `⌘K` badge, CSV export)
+  - `frontend/src/pages/AnalyticsPage.tsx` (accent KPI cards, department breakdown with relative scale gradient bars, currency tags)
+  - `screenshot-employees.png` & `screenshot-analytics.png` (updated high-res Playwright captures)
+- **Tests / Checks Run:**
+  - `npm run build` completed in 187ms with zero errors.
+  - Full Playwright browser automation test: logged in with `hr@acme.test`, inspected live pages, captured full-page screenshots.
+  - Backend test suite: `uv run pytest` (14/14 passed in 1.06s).

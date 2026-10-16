@@ -81,18 +81,56 @@ export const AnalyticsPage: React.FC = () => {
 
   return (
     <div>
-      {/* Page Title */}
-      <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 22 }}>Compensation & Salary Analytics</h1>
-        <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
-          Programmatic statistical compensation breakdown and distribution metrics
-        </p>
+      {/* Page Title & Context Header */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        marginBottom: 24,
+        flexWrap: 'wrap',
+        gap: 12,
+      }}>
+        <div>
+          <h1 style={{ fontSize: 24, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+            Compensation Analytics
+          </h1>
+          <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', marginTop: 4 }}>
+            Real-time programmatic statistical distribution, quartiles, and cross-departmental parity metrics across ACME
+          </p>
+        </div>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '6px 12px',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-color)',
+          borderRadius: 'var(--radius-full)',
+          fontSize: 12,
+          fontWeight: 600,
+          color: 'var(--text-secondary)',
+          boxShadow: 'var(--shadow-xs)',
+        }}>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#10b981' }} />
+          <span>Real-time Calculation Engine (USD)</span>
+        </div>
       </div>
 
       {/* Filter Row */}
-      <div className="card" style={{ marginBottom: 24, padding: 16 }}>
+      <div className="card" style={{ marginBottom: 24, padding: '18px 20px' }}>
+        <div style={{
+          fontSize: 12,
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.04em',
+          color: 'var(--text-muted)',
+          marginBottom: 12,
+        }}>
+          Segment & Filter Cohort
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
           <div>
+            <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Department</label>
             <select
               className="select"
               value={department}
@@ -106,6 +144,7 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <div>
+            <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Country</label>
             <select
               className="select"
               value={country}
@@ -119,6 +158,7 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <div>
+            <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Job Title</label>
             <select
               className="select"
               value={jobTitle}
@@ -132,41 +172,43 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <div>
+            <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Minimum Base (USD)</label>
             <input
               type="number"
-              className="input"
-              placeholder="Min Salary (USD)"
+              className="input tabular-nums"
+              placeholder="e.g. 50,000"
               value={minSalary}
               onChange={(e) => setMinSalary(e.target.value)}
             />
           </div>
 
           <div>
+            <label className="form-label" style={{ fontSize: 11.5, marginBottom: 4 }}>Maximum Base (USD)</label>
             <input
               type="number"
-              className="input"
-              placeholder="Max Salary (USD)"
+              className="input tabular-nums"
+              placeholder="e.g. 250,000"
               value={maxSalary}
               onChange={(e) => setMaxSalary(e.target.value)}
             />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             <button
               type="button"
               className="btn btn-secondary"
               onClick={handleResetFilters}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: 39 }}
             >
               <RotateCcw size={14} />
-              <span>Reset</span>
+              <span>Reset Filters</span>
             </button>
           </div>
         </div>
       </div>
 
       {error && (
-        <div className="alert alert-error">
+        <div className="alert alert-error" style={{ marginBottom: 20 }}>
           <AlertCircle size={16} />
           <span>{error}</span>
         </div>
@@ -180,66 +222,107 @@ export const AnalyticsPage: React.FC = () => {
         marginBottom: 24,
       }}>
         <KPICard
-          title="Matching Employees"
+          title="Active Headcount"
           value={analytics ? analytics.employee_count.toLocaleString() : null}
-          subtitle="Filtered employee count"
-          icon={<Users size={20} />}
+          subtitle="Employees in selected cohort"
+          icon={<Users size={18} />}
+          accentColor="#4f46e5"
+          accentBg="#eef2ff"
+          badge="Sample"
         />
 
         <KPICard
-          title="Average Salary"
+          title="Average Base"
           value={analytics ? formatUsd(analytics.average_salary) : null}
-          subtitle="Arithmetic mean (USD)"
-          icon={<TrendingUp size={20} />}
+          subtitle="Arithmetic mean per employee"
+          icon={<TrendingUp size={18} />}
+          accentColor="#10b981"
+          accentBg="#ecfdf5"
+          badge="Mean"
         />
 
         <KPICard
-          title="Median Salary"
+          title="Median Compensation"
           value={analytics ? formatUsd(analytics.median_salary) : null}
-          subtitle="50th percentile (USD)"
-          icon={<DollarSign size={20} />}
+          subtitle="50th percentile midpoint"
+          icon={<DollarSign size={18} />}
+          accentColor="#8b5cf6"
+          accentBg="#f5f3ff"
+          badge="P50"
         />
 
         <KPICard
-          title="Minimum Salary"
+          title="Minimum Floor"
           value={analytics ? formatUsd(analytics.minimum_salary) : null}
-          subtitle="Lowest in selection"
-          icon={<ArrowDownRight size={20} />}
+          subtitle="Lowest in current query"
+          icon={<ArrowDownRight size={18} />}
+          accentColor="#0284c7"
+          accentBg="#e0f2fe"
+          badge="Floor"
         />
 
         <KPICard
-          title="Maximum Salary"
+          title="Maximum Ceiling"
           value={analytics ? formatUsd(analytics.maximum_salary) : null}
-          subtitle="Highest in selection"
-          icon={<ArrowUpRight size={20} />}
+          subtitle="Highest in current query"
+          icon={<ArrowUpRight size={18} />}
+          accentColor="#d97706"
+          accentBg="#fffbeb"
+          badge="Ceiling"
         />
       </div>
 
       {/* Department Breakdown Section */}
-      <div className="card">
+      <div className="card" style={{ overflow: 'hidden' }}>
         <div style={{
+          padding: '18px 24px',
+          borderBottom: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: 16,
-          paddingBottom: 12,
-          borderBottom: '1px solid var(--border-color)',
+          flexWrap: 'wrap',
+          gap: 12,
+          backgroundColor: '#fafbfc',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <BarChart2 size={18} color="var(--primary)" />
-            <h2 style={{ fontSize: 16 }}>Department Compensation Breakdown</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{
+              width: 32,
+              height: 32,
+              borderRadius: 'var(--radius-sm)',
+              backgroundColor: 'var(--primary-subtle)',
+              color: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <BarChart2 size={18} />
+            </div>
+            <div>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>
+                Department Compensation Breakdown
+              </h2>
+              <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+                {analytics ? `${analytics.department_breakdown.length} departments reporting` : 'Aggregating compensation metrics...'}
+              </span>
+            </div>
           </div>
-          <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-            All statistics computed programmatically in USD
-          </span>
+          <div style={{
+            fontSize: 12,
+            fontWeight: 500,
+            color: 'var(--text-muted)',
+            fontFamily: 'var(--font-mono)',
+          }}>
+            ISO 4217 Currency: USD
+          </div>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: 48, color: 'var(--text-secondary)' }}>
-            Calculating statistics...
+          <div style={{ textAlign: 'center', padding: 56, color: 'var(--text-secondary)' }}>
+            <div style={{ fontSize: 14, fontWeight: 600 }}>Calculating statistics across 10,000 records...</div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Programmatic aggregation in SQLite</div>
           </div>
         ) : !analytics || analytics.department_breakdown.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: 48, color: 'var(--text-secondary)' }}>
+          <div style={{ textAlign: 'center', padding: 56, color: 'var(--text-secondary)' }}>
             No department data available for the selected filters.
           </div>
         ) : (
@@ -248,12 +331,12 @@ export const AnalyticsPage: React.FC = () => {
               <thead>
                 <tr>
                   <th>Department</th>
-                  <th>Employees</th>
-                  <th>Average Salary</th>
-                  <th>Relative Scale</th>
-                  <th>Median Salary</th>
-                  <th>Min Salary</th>
-                  <th>Max Salary</th>
+                  <th style={{ textAlign: 'right' }}>Headcount</th>
+                  <th style={{ textAlign: 'right' }}>Average Base</th>
+                  <th style={{ width: 180 }}>Relative Avg Scale</th>
+                  <th style={{ textAlign: 'right' }}>Median (P50)</th>
+                  <th style={{ textAlign: 'right' }}>Min Base</th>
+                  <th style={{ textAlign: 'right' }}>Max Base</th>
                 </tr>
               </thead>
               <tbody>
@@ -263,37 +346,74 @@ export const AnalyticsPage: React.FC = () => {
 
                   return (
                     <tr key={dept.department}>
-                      <td style={{ fontWeight: 600 }}>{dept.department}</td>
                       <td>
-                        <span className="badge">{dept.employee_count.toLocaleString()}</span>
+                        <span className={`dept-badge dept-${dept.department.replace(/\s+/g, '-')}`}>
+                          {dept.department}
+                        </span>
                       </td>
-                      <td style={{ fontWeight: 600, color: 'var(--primary)' }}>
-                        ${avgNum.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td style={{ textAlign: 'right' }}>
+                        <span className="badge tabular-nums" style={{ fontWeight: 600 }}>
+                          {dept.employee_count.toLocaleString()}
+                        </span>
                       </td>
-                      <td style={{ width: 140 }}>
-                        <div style={{
-                          height: 8,
-                          width: '100%',
-                          backgroundColor: 'var(--bg-subtle)',
-                          borderRadius: 4,
-                          overflow: 'hidden',
-                        }}>
+                      <td className="tabular-nums" style={{
+                        textAlign: 'right',
+                        fontWeight: 700,
+                        color: 'var(--text-primary)',
+                        fontFamily: 'var(--font-mono)',
+                      }}>
+                        ${avgNum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <div style={{
-                            height: '100%',
-                            width: `${barPct}%`,
-                            backgroundColor: 'var(--primary)',
-                            borderRadius: 4,
-                          }} />
+                            flex: 1,
+                            height: 7,
+                            backgroundColor: 'var(--bg-subtle)',
+                            borderRadius: 'var(--radius-full)',
+                            overflow: 'hidden',
+                          }}>
+                            <div style={{
+                              height: '100%',
+                              width: `${barPct}%`,
+                              background: 'linear-gradient(90deg, #4f46e5 0%, #6366f1 100%)',
+                              borderRadius: 'var(--radius-full)',
+                            }} />
+                          </div>
+                          <span className="tabular-nums" style={{
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: 'var(--text-muted)',
+                            width: 32,
+                            textAlign: 'right',
+                          }}>
+                            {barPct}%
+                          </span>
                         </div>
                       </td>
-                      <td style={{ fontWeight: 500 }}>
-                        ${Number(dept.median_salary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="tabular-nums" style={{
+                        textAlign: 'right',
+                        fontWeight: 600,
+                        color: '#4338ca',
+                        fontFamily: 'var(--font-mono)',
+                      }}>
+                        ${Number(dept.median_salary).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td style={{ color: 'var(--text-secondary)' }}>
-                        ${Number(dept.minimum_salary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="tabular-nums" style={{
+                        textAlign: 'right',
+                        color: 'var(--text-secondary)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 13,
+                      }}>
+                        ${Number(dept.minimum_salary).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td style={{ color: 'var(--text-secondary)' }}>
-                        ${Number(dept.maximum_salary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="tabular-nums" style={{
+                        textAlign: 'right',
+                        color: 'var(--text-secondary)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 13,
+                      }}>
+                        ${Number(dept.maximum_salary).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                     </tr>
                   );
