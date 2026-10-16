@@ -60,6 +60,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Logs
+# Logs & Test artifacts
 logs/
 *.log
+.playwright-mcp/
+.agents/
+
