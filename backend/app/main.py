@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes import auth, health
+from app.api.routes import auth, employees, health
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
 from app.db.connection import get_db_connection
@@ -43,3 +43,5 @@ register_error_handlers(app)
 # Register routes with /api/v1 prefix
 app.include_router(health.router, prefix="/api/v1")
 app.include_router(auth.router, prefix="/api/v1")
+app.include_router(employees.router, prefix="/api/v1")
+
