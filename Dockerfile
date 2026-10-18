@@ -15,7 +15,9 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DATABASE_PATH=/data/acme.db \
     ENVIRONMENT=production \
-    PORT=8000
+    PORT=8000 \
+    HR_EMAIL=hr@acme.test \
+    HR_PASSWORD=hr@123456
 
 # Install uv for fast Python dependency management
 RUN pip install --no-cache-dir uv
@@ -34,8 +36,16 @@ COPY backend/ /app/backend/
 # Copy built frontend assets from Stage 1 into frontend/dist
 COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
 
+# Pre-seed 10,000 employees and bootstrap HR manager (password: hr@123456) at build time
+RUN uv run python scripts/create_hr_user.py --email hr@acme.test --password hr@123456 && \
+    uv run python scripts/seed.py --count 10000
+
+# Copy and setup runtime entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port
 EXPOSE 8000
 
 # Run entrypoint
-CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["/app/entrypoint.sh"]

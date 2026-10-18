@@ -10,6 +10,8 @@ services:
       - DATABASE_PATH=/data/acme.db
       - SESSION_SECRET=production-secret-key-acme-salary-assessment-2026
       - SESSION_COOKIE_SECURE=false
+      - HR_EMAIL=hr@acme.test
+      - HR_PASSWORD=hr@123456
     volumes:
       - acme_db_data:/data
 

@@ -64,7 +64,7 @@ cd ..
 Create your local HR user credentials using the secure CLI helper:
 ```bash
 cd backend
-uv run python scripts/create_hr_user.py --email hr@acme.test --password "AcmeAdmin2026!"
+uv run python scripts/create_hr_user.py --email hr@acme.test --password "hr@123456"
 cd ..
 ```
 
@@ -92,7 +92,8 @@ npm run dev
 ```
 *Open [http://localhost:5173](http://localhost:5173) in your browser and log in with:*
 - **Email:** `hr@acme.test`
-- **Password:** `AcmeAdmin2026!`
+- **Password:** `hr@123456`
+
 
 ---
 
@@ -136,22 +137,17 @@ Compiles and bundles the TypeScript React application cleanly into `frontend/dis
 Because SQLite stores state in a local file, persistent storage is required so data survives restarts.
 
 ### Option A: Turnkey Docker Compose (Persistent Volume)
+The Docker container automatically bootstraps the HR account (`hr@acme.test` / `hr@123456`) and seeds the 10,000 employees out of the box:
 ```bash
-# 1. Build and start container
+# Build and start container (pre-seeded automatically)
 docker compose up -d --build
-
-# 2. Bootstrap HR user in container
-docker compose exec app uv run python scripts/create_hr_user.py --email hr@acme.test --password "AcmeAdmin2026!"
-
-# 3. Seed 10,000 employees in container
-docker compose exec app uv run python scripts/seed.py --count 10000
 ```
-Access the application at [http://localhost:8000](http://localhost:8000).
+Access the application immediately at [http://localhost:8000](http://localhost:8000).
 
 ### Option B: Cloud Hosting (Render, Fly.io, Railway)
-1. Mount a persistent disk volume to `/data`.
-2. Set environment variable `DATABASE_PATH=/data/acme.db`.
-3. Set `SESSION_SECRET` to a random high-entropy key and `SESSION_COOKIE_SECURE=true`.
+1. Connect your repository and deploy with Docker runtime.
+2. Mount a persistent disk volume to `/data` (optional; if unmounted, in-container storage persists per instance).
+3. The container's entrypoint automatically seeds 10,000 employees and binds to `${PORT:-8000}`.
 
 ---
 
@@ -167,7 +163,8 @@ A high-definition video walkthrough featuring automated live captions and demons
 
 
 ### Walkthrough Narrative & Key Moments:
-1. **Security & Login (0:00 - 0:04):** Sign in with `hr@acme.test` / `AcmeAdmin2026!`. Argon2id password verification, `HttpOnly` session cookie issuance, and CSRF protection.
+1. **Security & Login (0:00 - 0:04):** Sign in with `hr@acme.test` / `hr@123456`. Argon2id password verification, `HttpOnly` session cookie issuance, and CSRF protection.
+
 2. **Executive Overview (0:04 - 0:08):** High-level headcount and compensation distribution across 10,000 active employees.
 3. **10,000-Record Directory (0:08 - 0:12):** Sub-millisecond indexed queries (~1.36ms) across global departments and jurisdictions.
 4. **Multi-Attribute Filtering (0:12 - 0:16):** Instant filtering across department, country, and compensation bands.

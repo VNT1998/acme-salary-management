@@ -16,14 +16,11 @@ from app.schemas.common import normalize_email
 
 def main():
     parser = argparse.ArgumentParser(description="Bootstrap an HR manager user account.")
-    parser.add_argument("--email", help="HR manager email address")
-    parser.add_argument("--password", help="HR manager password")
+    parser.add_argument("--email", default="hr@acme.test", help="HR manager email address (default: hr@acme.test)")
+    parser.add_argument("--password", default="hr@123456", help="HR manager password (default: hr@123456)")
     args = parser.parse_args()
 
     email = args.email
-    if not email:
-        email = input("Enter HR email: ").strip()
-
     try:
         email = normalize_email(email)
     except Exception as e:
@@ -31,13 +28,6 @@ def main():
         sys.exit(1)
 
     password = args.password
-    if not password:
-        password = getpass.getpass("Enter HR password: ")
-        confirm_password = getpass.getpass("Confirm HR password: ")
-        if password != confirm_password:
-            print("Error: Passwords do not match.", file=sys.stderr)
-            sys.exit(1)
-
     if len(password) < 8:
         print("Error: Password must be at least 8 characters long.", file=sys.stderr)
         sys.exit(1)
@@ -48,13 +38,15 @@ def main():
     with get_db_connection(settings.database_file_path) as conn:
         init_db(conn)
         with transaction(conn):
-            try:
+            existing = conn.execute("SELECT id FROM hr_users WHERE email = ?", (email,)).fetchone()
+            if existing:
+                conn.execute("UPDATE hr_users SET password_hash = ? WHERE email = ?", (hashed, email))
+                print(f"Success: Updated password for existing HR user '{email}'.")
+            else:
                 user = create_hr_user(conn, email, hashed)
                 print(f"Success: Created HR user '{user['email']}' (ID: {user['id']}).")
-            except Exception as e:
-                print(f"Error creating user: {e}", file=sys.stderr)
-                sys.exit(1)
 
 
 if __name__ == "__main__":
     main()
+

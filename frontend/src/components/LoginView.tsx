@@ -185,8 +185,9 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
               <ShieldCheck size={14} color="var(--primary)" />
               <span>HR Administrator Access</span>
             </div>
-            <div>Credentials: <code>hr@acme.test</code> / <code>AcmeAdmin2026!</code></div>
+            <div>Credentials: <code>hr@acme.test</code> / <code>hr@123456</code></div>
           </div>
+
         </div>
       </div>
 
