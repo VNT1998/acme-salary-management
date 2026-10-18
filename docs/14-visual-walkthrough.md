@@ -4,6 +4,14 @@ An end-to-end visual walkthrough of the ACME Salary Management & Analytics softw
 
 ---
 
+## 🎥 Video Walkthrough (with Live Captions)
+
+A continuous, high-definition video demonstration with automated explanatory captions highlighting all user flows, transactions, and analytics is available in the repository:
+
+▶️ **Video File:** [**`../demo-walkthrough.mp4`**](../demo-walkthrough.mp4) (H.264 / 1280x720 / 31s)
+
+---
+
 ## 1. Executive Summary & Core Flows
 
 ```mermaid
@@ -30,8 +38,6 @@ flowchart LR
 ![Step 3: 10,000-Record Employee Directory with Sub-Millisecond Search](../screenshot-employees.png)
 <!-- slide -->
 ![Step 4: Programmatic Compensation Analytics & Department Breakdown](../screenshot-analytics.png)
-<!-- slide -->
-![Step 5: Account Profile & Session Management](../screenshot-profile.png)
 ````
 
 ### Slide-by-Slide Explanations
@@ -64,12 +70,6 @@ flowchart LR
   * **No LLM Math:** All statistical calculations are computed programmatically in Python and SQLite, eliminating hallucinations and ensuring 100% mathematical determinism.
   * Dynamically reacts to active directory filters in **~13.36 ms**.
 
-#### Slide 5: Profile & Session Management
-* **Product Purpose:** Displays the active HR Manager's profile information, role credentials, and enables clean session termination.
-* **Engineering Highlights:**
-  * Immediate session revocation in the database upon logout, preventing replay attacks.
-  * Automatic redirection of unauthenticated requests back to the protected login boundary.
-
 ---
 
 ## 3. Salary Mutation & Audit Trail Architecture
@@ -84,15 +84,15 @@ sequenceDiagram
     participant API as FastAPI Backend
     participant DB as SQLite (WAL Mode)
 
-    HR->>UI: Submit New Salary ($135,000) & Effective Date
+    HR->>UI: Submit New Salary ($145,000) & Effective Date
     UI->>API: POST /api/v1/employees/{id}/salaries (CSRF + Session)
     Note over API,DB: BEGIN IMMEDIATE Transaction
     API->>DB: Fetch current employee salary ($120,000)
-    API->>DB: UPDATE employees SET current_salary_cents = 13500000
-    API->>DB: INSERT INTO salary_history (prev: 12000000, new: 13500000)
+    API->>DB: UPDATE employees SET current_salary_cents = 14500000
+    API->>DB: INSERT INTO salary_history (prev: 12000000, new: 14500000)
     DB-->>API: COMMIT
     API-->>UI: 200 OK (Updated Record + Audit Entry)
-    UI-->>HR: Timeline Updated with Delta (+12.5%) & Date
+    UI-->>HR: Timeline Updated with Delta (+20.8%) & Date
 ```
 
 > [!IMPORTANT]
@@ -100,21 +100,9 @@ sequenceDiagram
 
 ---
 
-## 4. Mobile & Responsive Workflows
+## 4. Responsive & Mobile Design
 
-The application includes first-class responsive design tailored for HR executives reviewing salaries on mobile and tablet devices.
-
-````carousel
-![Mobile Dashboard View](../screenshot-mobile-dashboard.png)
-<!-- slide -->
-![Mobile Employee Card Stack](../screenshot-mobile-employees.png)
-<!-- slide -->
-![Mobile Analytics Breakdown](../screenshot-mobile-analytics.png)
-<!-- slide -->
-![Collapsible Mobile Navigation Drawer](../screenshot-mobile-sidebar.png)
-````
-
-### Responsive Highlights
+The application provides first-class responsive design tailored for HR executives reviewing salaries across devices:
 * **Adaptive Cards:** On small viewports, the tabular directory transforms into card stacks with touch-friendly action buttons.
 * **Drawer Navigation:** Collapsible side drawer preserving screen real estate while maintaining instant tab switching.
 * **Touch Targets:** Fully compliant with accessibility standards (48px+ minimum touch targets).

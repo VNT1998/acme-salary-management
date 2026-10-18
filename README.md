@@ -147,20 +147,24 @@ Access the application at [http://localhost:8000](http://localhost:8000).
 
 ---
 
-## 6. Video Demo Walkthrough Guide
+## 6. Video Demo Walkthrough
 
-When recording the assessment demonstration video:
-1. **Login:** Navigate to the deployed URL and sign in with the HR credentials.
-2. **Employee Directory:** Demonstrate the 10,000-record dataset, pagination, and sorting by salary and name.
-3. **Filtering:** Filter by Department (*Engineering*), Country (*United States*), and Salary Range (*$100,000 - $180,000*).
-4. **Create Employee:** Click "Add Employee", fill in details with initial compensation, and demonstrate immediate addition to the directory.
-5. **Non-Salary Edit:** Click "Edit", update the employee's Job Title, and show the note explaining salary is protected from inline editing.
-6. **Transactional Salary Update:** Click "Salary", enter a new compensation amount and effective date, and submit.
-7. **Salary History Audit:** Open "History" on the updated employee to demonstrate the chronological timeline showing the initial salary and the updated compensation with delta and percentage change.
-8. **Analytics Dashboard:** Switch to the Analytics tab to demonstrate real-time Average, Median, Min, Max, and Department Breakdowns reflecting the active filters.
-9. **Logout:** Sign out to prove session termination and protected route redirection.
+A high-definition video walkthrough featuring automated live captions and demonstrating all end-to-end flows is included directly in this repository:
+
+🎥 **Watch Walkthrough:** [**`demo-walkthrough.mp4`**](./demo-walkthrough.mp4) (H.264 / 1280x720)
+
+### Walkthrough Narrative & Key Moments:
+1. **Security & Login (0:00 - 0:04):** Sign in with `hr@acme.test` / `AcmeAdmin2026!`. Argon2id password verification, `HttpOnly` session cookie issuance, and CSRF protection.
+2. **Executive Overview (0:04 - 0:08):** High-level headcount and compensation distribution across 10,000 active employees.
+3. **10,000-Record Directory (0:08 - 0:12):** Sub-millisecond indexed queries (~1.36ms) across global departments and jurisdictions.
+4. **Multi-Attribute Filtering (0:12 - 0:16):** Instant filtering across department, country, and compensation bands.
+5. **Transactional Salary Update (0:16 - 0:20):** Atomic salary adjustments using `BEGIN IMMEDIATE` transactions with automated rollback protection, decoupled from profile edits.
+6. **Immutable Audit Trail (0:20 - 0:25):** Historical timeline inspection showing previous salary, new salary, exact dollar delta, and percentage change.
+7. **Programmatic Analytics (0:25 - 0:29):** Dynamic Average, exact Median (50th percentile), Min/Max, and department breakdown calculated without LLM math.
+8. **Session Invalidation (0:29 - 0:31):** Secure logout and protected route guarding.
 
 ---
+
 
 ## 7. Documentation Index
 
