@@ -178,4 +178,5 @@ Detailed planning artifacts are preserved under [`docs/`](./docs):
 - [`docs/11-security-and-data-integrity.md`](./docs/11-security-and-data-integrity.md) — Security safeguards
 - [`docs/12-deployment-and-submission.md`](./docs/12-deployment-and-submission.md) — Deployment & checklist
 - [`docs/13-ui-ux-design-guidelines.md`](./docs/13-ui-ux-design-guidelines.md) — HR portal UI/UX tokens
+- [`docs/14-visual-walkthrough.md`](./docs/14-visual-walkthrough.md) — Product & visual workflow walkthrough
 - [`docs/ai-prompts/README.md`](./docs/ai-prompts/README.md) — Milestone AI prompt log
