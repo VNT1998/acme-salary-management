@@ -2,6 +2,14 @@
 
 A production-grade, internal HR salary management and analytics web application built for **ACME** (10,000 employees). Designed and implemented for the **Incubyte Take-Home Assessment**.
 
+<p align="center">
+  <a href="./demo-walkthrough.mp4">
+    <img src="./demo-preview.gif" alt="ACME Salary Management Demo Walkthrough" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+  </a>
+  <br/>
+  <em>🎥 <strong>Interactive Product Walkthrough (with Live Captions)</strong> — Click above to watch or open <a href="./demo-walkthrough.mp4"><code>demo-walkthrough.mp4</code></a>.</em>
+</p>
+
 ---
 
 ## 1. System Overview & Core Capabilities
@@ -151,7 +159,12 @@ Access the application at [http://localhost:8000](http://localhost:8000).
 
 A high-definition video walkthrough featuring automated live captions and demonstrating all end-to-end flows is included directly in this repository:
 
-🎥 **Watch Walkthrough:** [**`demo-walkthrough.mp4`**](./demo-walkthrough.mp4) (H.264 / 1280x720)
+<p align="center">
+  <video src="./demo-walkthrough.mp4" controls width="100%" poster="./screenshot-dashboard.png"></video>
+</p>
+
+🎥 **Direct Video File:** [**`demo-walkthrough.mp4`**](./demo-walkthrough.mp4) (H.264 / 1280x720 / ~896 KB)
+
 
 ### Walkthrough Narrative & Key Moments:
 1. **Security & Login (0:00 - 0:04):** Sign in with `hr@acme.test` / `AcmeAdmin2026!`. Argon2id password verification, `HttpOnly` session cookie issuance, and CSRF protection.
